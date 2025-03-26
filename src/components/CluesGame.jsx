@@ -137,12 +137,15 @@ const CluesGame = ({ difficulty, category }) => {
       const showLetter = isGuessed || isSpace || gameStatus === 'lost'
       
       return (
-        <div 
+        <motion.div 
           key={index} 
           className={`letter-box ${isSpace ? 'border-none' : ''}`}
+          initial={{ y: -20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: index * 0.05, duration: 0.3 }}
         >
           {showLetter ? letter : '_'}
-        </div>
+        </motion.div>
       )
     })
   }
@@ -171,6 +174,9 @@ const CluesGame = ({ difficulty, category }) => {
               whileTap={!isGuessed ? { scale: 0.95 } : {}}
               onClick={() => handleGuess(letter)}
               className={keyClass}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ delay: rowIndex * 0.1 + row.indexOf(letter) * 0.03, duration: 0.2 }}
             >
               {letter}
             </motion.div>
@@ -191,22 +197,27 @@ const CluesGame = ({ difficulty, category }) => {
           Each revealed clue costs 3 points from your final score.
         </p>
         {clues.map((clue, index) => (
-          <div 
+          <motion.div 
             key={index}
             className={`clue-card ${revealedClues.includes(index) ? 'clue-revealed' : 'clue-locked'}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 * index, duration: 0.3 }}
           >
             <div className="flex justify-between items-center">
               <div className="font-medium">Clue #{index + 1}</div>
               {!revealedClues.includes(index) && gameStatus === 'active' ? (
-                <button 
+                <motion.button 
                   onClick={() => revealClue(index)}
                   className="clue-button clue-button-reveal"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
                 >
                   <div className="flex items-center gap-1">
                     <Eye size={14} />
                     <span>Reveal (-3pts)</span>
                   </div>
-                </button>
+                </motion.button>
               ) : (
                 <div className="text-xs px-2 py-1 rounded bg-surface-200 dark:bg-surface-700">
                   {revealedClues.includes(index) ? "Revealed" : "Locked"}
@@ -223,14 +234,14 @@ const CluesGame = ({ difficulty, category }) => {
                 </div>
               )}
             </div>
-          </div>
+          </motion.div>
         ))}
       </div>
     )
   }
   
   return (
-    <div className="bg-white dark:bg-surface-800 rounded-2xl p-6 shadow-card">
+    <div className="game-card">
       <div className="flex justify-between items-center mb-6">
         <div>
           <h2 className="font-heading text-xl text-secondary dark:text-outback-sand">
@@ -262,10 +273,15 @@ const CluesGame = ({ difficulty, category }) => {
             </motion.button>
             
             {showTooltip && (
-              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1.5 bg-surface-800 dark:bg-surface-900 text-white text-xs rounded shadow-lg whitespace-nowrap z-10">
+              <motion.div 
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 5 }}
+                className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1.5 bg-surface-800 dark:bg-surface-900 text-white text-xs rounded shadow-lg whitespace-nowrap z-10"
+              >
                 {showCluesPanel ? 'Hide clues' : 'Show helpful clues'}
                 <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-surface-800 dark:border-t-surface-900"></div>
-              </div>
+              </motion.div>
             )}
           </div>
           
@@ -294,7 +310,11 @@ const CluesGame = ({ difficulty, category }) => {
                     pathLength: index < incorrectGuesses ? 1 : 0,
                     opacity: index < incorrectGuesses ? 1 : 0
                   }}
-                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  transition={{ 
+                    duration: 0.5, 
+                    ease: "easeInOut",
+                    delay: index < incorrectGuesses ? 0.1 : 0
+                  }}
                   className="kangaroo-part"
                 />
               ))}
@@ -311,16 +331,19 @@ const CluesGame = ({ difficulty, category }) => {
             {showMessage && (
               <motion.div
                 initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
+                animate={{ 
+                  opacity: 1, 
+                  y: 0,
+                }}
                 exit={{ opacity: 0 }}
-                className={`mb-4 p-3 rounded-lg text-center ${
+                className={`error-message ${
                   gameStatus === 'won' 
-                    ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-200' 
-                    : 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-200'
+                    ? 'error-message-success animate-bounce' 
+                    : 'error-message-error animate-shake'
                 }`}
               >
                 <div className="flex items-center justify-center gap-2">
-                  <AlertCircle size={16} />
+                  <AlertCircle size={16} className={gameStatus === 'won' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'} />
                   <span>{message}</span>
                 </div>
               </motion.div>
