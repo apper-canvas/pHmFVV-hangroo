@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-sans text-surface-800 dark:text-surface-100 antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading font-semibold;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all duration-200 transform active:scale-95;
+  }
+  
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary-dark shadow-md;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-white hover:bg-secondary-dark shadow-md;
+  }
+  
+  .btn-accent {
+    @apply bg-accent text-white hover:bg-accent/90 shadow-md;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-white;
+  }
+  
+  .letter-box {
+    @apply w-12 h-12 flex items-center justify-center text-xl font-bold border-b-2 border-secondary-light dark:border-surface-600 mx-1;
+  }
+  
+  .keyboard-key {
+    @apply w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-lg font-medium text-lg transition-all duration-150 transform hover:scale-105 active:scale-95 cursor-pointer;
+  }
+  
+  .keyboard-key-default {
+    @apply bg-surface-100 dark:bg-surface-700 text-surface-800 dark:text-surface-100 shadow-neu-light dark:shadow-neu-dark;
+  }
+  
+  .keyboard-key-correct {
+    @apply bg-green-500 text-white;
+  }
+  
+  .keyboard-key-incorrect {
+    @apply bg-surface-400 dark:bg-surface-800 text-surface-300 dark:text-surface-600 cursor-not-allowed;
+  }
+  
+  .kangaroo-part {
+    @apply stroke-kangaroo dark:stroke-kangaroo-light stroke-2 fill-none transition-all duration-300;
+  }
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .text-shadow-sm {
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+}
