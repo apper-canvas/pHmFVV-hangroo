@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
 import Navigation from './components/Navigation'
+import CluesPage from './pages/CluesPage'
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -57,6 +58,7 @@ function App() {
       <main className="container mx-auto px-4 py-6">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/clues" element={<CluesPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>
