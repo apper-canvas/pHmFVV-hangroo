@@ -56,6 +56,22 @@
   .kangaroo-part {
     @apply stroke-kangaroo dark:stroke-kangaroo-light stroke-2 fill-none transition-all duration-300;
   }
+  
+  .nav-link {
+    @apply px-3 py-2 rounded-lg text-surface-700 dark:text-surface-300 hover:bg-surface-100 dark:hover:bg-surface-700 transition-colors font-medium;
+  }
+  
+  .nav-link-active {
+    @apply bg-kangaroo/10 text-kangaroo dark:bg-kangaroo-light/10 dark:text-kangaroo-light;
+  }
+  
+  .mobile-menu {
+    @apply fixed inset-0 bg-black/50 backdrop-blur-sm z-40 flex flex-col md:hidden;
+  }
+  
+  .mobile-menu-content {
+    @apply bg-white dark:bg-surface-800 p-6 w-full max-w-xs h-full overflow-y-auto shadow-lg;
+  }
 }
 
 @layer utilities {

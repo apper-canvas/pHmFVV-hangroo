@@ -4,6 +4,7 @@ import { Moon, Sun } from 'lucide-react'
 import { motion } from 'framer-motion'
 import Home from './pages/Home'
 import NotFound from './pages/NotFound'
+import Navigation from './components/Navigation'
 
 function App() {
   const [darkMode, setDarkMode] = useState(() => {
@@ -40,14 +41,17 @@ function App() {
           <span className="bg-kangaroo text-white text-xs px-2 py-0.5 rounded-full">BETA</span>
         </div>
         
-        <motion.button
-          whileTap={{ scale: 0.9 }}
-          onClick={toggleDarkMode}
-          className="p-2 rounded-full bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-200 hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
-          aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
-        >
-          {darkMode ? <Sun size={20} /> : <Moon size={20} />}
-        </motion.button>
+        <div className="flex items-center gap-3">
+          <Navigation />
+          <motion.button
+            whileTap={{ scale: 0.9 }}
+            onClick={toggleDarkMode}
+            className="p-2 rounded-full bg-surface-100 dark:bg-surface-800 text-surface-700 dark:text-surface-200 hover:bg-surface-200 dark:hover:bg-surface-700 transition-colors"
+            aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+          </motion.button>
+        </div>
       </header>
 
       <main className="container mx-auto px-4 py-6">
