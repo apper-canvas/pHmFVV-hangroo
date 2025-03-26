@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { RefreshCw, AlertCircle, HelpCircle, Eye, Lock } from 'lucide-react'
+import { RefreshCw, AlertCircle, Eye, Lock, Lightbulb } from 'lucide-react'
 import cluesData from '../data/cluesData'
 
 // Keyboard layout
@@ -33,6 +33,7 @@ const CluesGame = ({ difficulty, category }) => {
   const [clues, setClues] = useState([])
   const [revealedClues, setRevealedClues] = useState([])
   const [showCluesPanel, setShowCluesPanel] = useState(false)
+  const [showTooltip, setShowTooltip] = useState(false)
   
   // Initialize or reset the game
   const initGame = () => {
@@ -242,15 +243,31 @@ const CluesGame = ({ difficulty, category }) => {
         </div>
         
         <div className="flex gap-2">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={toggleCluesPanel}
-            className="p-2 rounded-full bg-accent/20 text-accent dark:bg-accent/30 dark:text-accent-light hover:bg-accent/30 dark:hover:bg-accent/40 transition-colors"
-            aria-label="Show Clues"
-          >
-            <HelpCircle size={20} />
-          </motion.button>
+          <div className="relative">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={toggleCluesPanel}
+              onMouseEnter={() => setShowTooltip(true)}
+              onMouseLeave={() => setShowTooltip(false)}
+              className={`flex items-center gap-2 px-3 py-2 rounded-lg ${
+                showCluesPanel 
+                  ? 'bg-accent text-white dark:bg-accent dark:text-white'
+                  : 'bg-accent/20 text-accent hover:bg-accent/30 dark:bg-accent/30 dark:text-accent-light dark:hover:bg-accent/40'
+              } transition-colors`}
+              aria-label="Show Clues"
+            >
+              <Lightbulb size={18} className={showCluesPanel ? 'animate-pulse' : ''} />
+              <span className="hidden md:inline text-sm font-medium">Clues</span>
+            </motion.button>
+            
+            {showTooltip && (
+              <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-1.5 bg-surface-800 dark:bg-surface-900 text-white text-xs rounded shadow-lg whitespace-nowrap z-10">
+                {showCluesPanel ? 'Hide clues' : 'Show helpful clues'}
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 border-4 border-transparent border-t-surface-800 dark:border-t-surface-900"></div>
+              </div>
+            )}
+          </div>
           
           <motion.button
             whileHover={{ scale: 1.05 }}

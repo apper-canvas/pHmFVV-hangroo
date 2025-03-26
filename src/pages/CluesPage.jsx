@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { HelpCircle } from 'lucide-react'
+import { HelpCircle, Lightbulb } from 'lucide-react'
 import CluesGame from '../components/CluesGame'
 
 const CluesPage = () => {
@@ -88,7 +88,7 @@ const CluesPage = () => {
             <h3 className="text-lg font-heading mb-2 text-secondary dark:text-secondary-light">How to Play with Clues</h3>
             <ul className="list-disc list-inside space-y-2 text-surface-700 dark:text-surface-200">
               <li>Guess letters to reveal the hidden word</li>
-              <li>Click the <HelpCircle size={16} className="inline mb-1" /> button in the game to show clues panel</li>
+              <li>Click the <Lightbulb size={16} className="inline mb-1 text-accent" /> button in the game to show clues panel</li>
               <li>Each revealed clue will cost you 3 points from your final score</li>
               <li>Use clues strategically - they help you win but reduce your score</li>
               <li>Seven incorrect guesses will complete the kangaroo drawing and end the game</li>
